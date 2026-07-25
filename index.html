@@ -38,7 +38,7 @@
   .eyebrow::before{ content:""; width:16px; height:1px; background:var(--accent); display:inline-block; }
 
   .headshot{
-    width:160px; height:160px; border-radius:50%; margin-bottom:18px;
+    width:250px; height:250px; border-radius:50%; margin-bottom:18px;
     background:linear-gradient(135deg, var(--panel-2), var(--accent-dim));
     border:1px solid var(--line);
     display:flex; align-items:center; justify-content:center;
@@ -61,21 +61,30 @@
   .role{ color:var(--blue); font-size:14px; font-weight:500; margin-bottom:2px; }
   .loc{ color:var(--muted); font-size:13px; font-family:'JetBrains Mono', monospace; margin-bottom:22px; }
 
-  .email-btn{
-    font-size:13px; display:flex; align-items:center; gap:8px; color:var(--text);
-    padding:8px 10px; border:1px solid var(--line); border-radius:var(--radius);
-    margin-bottom:28px; width:fit-content; transition:border-color .15s, color .15s;
-  }
-  .email-btn:hover{ border-color:var(--accent); color:var(--accent); }
-  .email-btn::before{ content:"›"; color:var(--accent); font-family:monospace; }
-
   .status-badge{
     border:1px dashed var(--accent-dim); background:rgba(232,163,61,0.06);
     padding:10px 12px; font-size:12.5px; color:var(--accent); font-family:'JetBrains Mono', monospace;
   }
   .status-badge b{ color:var(--text); }
 
+  .resume-btn-side{
+    font-size:13px; display:flex; align-items:center; gap:8px; color:var(--accent);
+    padding:8px 10px; border:1px solid var(--accent-dim); border-radius:var(--radius);
+    margin-bottom:20px; width:fit-content; transition:background .15s;
+  }
+  .resume-btn-side:hover{ background:rgba(232,163,61,0.1); }
+  .resume-btn-side span{ font-family:monospace; }
+
+  .now-block{ margin-top:4px; padding-top:20px; border-top:1px dotted var(--line); }
+  .now-label{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:10px; }
+  .now-line{ font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--text); padding:6px 0 6px 14px; position:relative; }
+  .now-line::before{ content:"▸"; position:absolute; left:0; color:var(--accent); font-size:10px; top:8px; }
+  
+ 
+
+
   /* ---------- Top nav ---------- */
+
   header.topnav{
     position:sticky; top:0; z-index:20; display:flex; align-items:center; gap:28px;
     padding:18px 48px; background:rgba(11,18,32,0.85); backdrop-filter:blur(10px);
@@ -92,13 +101,14 @@
   .resume-btn:hover{ background:rgba(232,163,61,0.1); }
 
   /* ---------- Main content ---------- */
+
   main{ padding:56px 64px 100px; position:relative; z-index:1; }
   section{ margin-bottom:88px; scroll-margin-top:24px; }
   .section-label{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--accent); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:10px; }
   section h2{ font-size:32px; font-weight:600; margin-bottom:8px; }
   section .subhead{ color:var(--muted); font-size:14.5px; margin-bottom:32px; max-width:640px; }
 
-  .about-body{ max-width:680px; color:#c9d2de; font-size:15px; }
+  .about-body{ max-width:900px; color:#c9d2de; font-size:15px; }
   .about-body p{ margin-bottom:16px; }
   .about-body p:last-child{ margin-bottom:0; }
 
@@ -156,18 +166,23 @@
     align-items:center; justify-content:center; padding:32px;
   }
   .modal-overlay.open{ display:flex; }
-  .modal-box{ background:var(--panel); border:1px solid var(--line); max-width:840px; width:100%; max-height:88vh; overflow-y:auto; position:relative; }
+  .modal-box{ background:var(--panel); border:1px solid var(--line); max-width:1300px; width:100%; max-height:88vh; overflow-y:auto; position:relative; }
   .modal-close{
     position:absolute; top:20px; right:20px; z-index:2; background:rgba(11,18,32,0.6);
     border:1px solid var(--line); color:var(--text); width:34px; height:34px;
     cursor:pointer; font-size:18px; line-height:1; border-radius:var(--radius);
   }
-  .modal-img{ width:100%; aspect-ratio:16/8; background:var(--panel-2); display:flex; align-items:center; justify-content:center; color:var(--muted); font-family:'JetBrains Mono', monospace; font-size:12.5px; }
+  .modal-img{ width:100%; aspect-ratio:21/9; background:var(--panel-2); display:flex; align-items:center; justify-content:center; color:var(--muted); font-family:'JetBrains Mono', monospace; font-size:12.5px; }
   .modal-body{ padding:40px 44px 44px; }
   .modal-body .idx{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--accent); margin-bottom:10px; display:block; }
   .modal-body h3{ font-size:30px; margin-bottom:28px; }
   .modal-body h4{ font-size:16px; margin-bottom:10px; }
   .modal-body .detail{ color:#c9d2de; font-size:15px; margin-bottom:28px; max-width:680px; }
+  .modal-grid{ display:grid; grid-template-columns:1fr 260px; gap:40px; align-items:start; }
+  .modal-main .detail{ max-width:none; }
+  .modal-side .modal-tags{ margin-bottom:20px; }
+  .modal-side .modal-actions{ flex-direction:column; align-items:stretch; }
+  @media (max-width:700px){ .modal-grid{ grid-template-columns:1fr; } }
   .modal-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:32px; }
   .modal-tags span{ font-size:12px; font-family:'JetBrains Mono', monospace; color:var(--blue); background:rgba(91,155,213,0.1); border:1px solid var(--line); padding:5px 12px; border-radius:var(--radius); }
   .modal-actions{ display:flex; gap:12px; flex-wrap:wrap; }
@@ -202,13 +217,15 @@
     </div>
 
     <div class="role">Mechatronics Engineering Technology Student</div>
-    <div class="loc">Rochester, NY · RIT</div>
+    <div class="loc">RIT · Rochester, NY</div>
 
-    <a class="email-btn" href="mailto:bhaskar.sikri11@gmail.com">Email</a>
 
-    <div class="status-badge">
-      ● Open to <b>Summer 2027 internships</b> in automation, robotics &amp; hardware
+    <div class="now-block">
+      <div class="now-label">Currently building</div>
+      <div class="now-line">CAD → SolidWorks / CSWA prep</div>
+      <div class="now-line">Arduino sensor roadmap · month 2</div>
     </div>
+    
   </aside>
 
   <!-- ========== RIGHT COLUMN ========== -->
@@ -222,8 +239,9 @@
         <a href="#experience">Experience</a>
         <a href="#contact">Contact</a>
       </nav>
-      <a class="resume-btn" href="resume.pdf" download>Resume</a>
-      <!-- Put your actual resume PDF next to this file and name it resume.pdf, or change the href -->
+      <a class="resume-btn-side" href="resume.pdf" target="_blank" rel="noopener">
+        <span>›</span> View Resume
+      </a>
     </header>
 
     <main>
@@ -352,17 +370,22 @@
     <button class="modal-close" id="modal-close" aria-label="Close">×</button>
     <div class="modal-img" id="modal-img">Drop project image</div>
     <div class="modal-body">
-      <span class="idx" id="modal-idx"></span>
-      <h3 id="modal-title"></h3>
+  <span class="idx" id="modal-idx"></span>
+  <h3 id="modal-title"></h3>
+  <div class="modal-grid">
+    <div class="modal-main">
       <h4>Project Overview</h4>
       <p class="detail" id="modal-detail"></p>
+    </div>
+    <div class="modal-side">
       <h4>Skills Used</h4>
       <div class="modal-tags" id="modal-tags"></div>
       <div class="modal-actions">
         <a class="repo" id="modal-repo" href="#" target="_blank">GitHub Repo</a>
-        <a class="writeup" id="modal-writeup" href="#" target="_blank">Write-up</a>
       </div>
     </div>
+  </div>
+</div>
   </div>
 </div>
 
@@ -373,12 +396,11 @@
   const projects = [
     {
       idx: "01",
-      title: "LEGO SPIKE Prime — Autonomous Ring Retrieval",
-      summary: "Autonomous robot built to locate and retrieve rings, developed for RIT robotics work.",
-      detail: "Built and programmed an autonomous LEGO SPIKE Prime robot to locate a ring using onboard sensors and retrieve it back to a home zone, developed as part of RIT robotics work. The build combined a color/distance sensor for ring detection with a simple decision loop to drive, search, and grab.",
+      title: "Servo Motor Parameters App",
+      summary: "A app made to change certain settings on two different types of servo motor.",
+      detail: "This app was made using python",
       tags: ["SPIKE Prime", "Sensors", "Autonomy"],
       repo: "#",
-      writeup: "#"
     },
     {
       idx: "02",
@@ -387,7 +409,6 @@
       detail: "Designed and coded an autonomous LEGO robot for the ISSEA STEAM 2025 competition in Addis Ababa, tasked with locating and flipping a Ring Stack toy using block-based programming. Our team won the MVP award for best overall team performance across the competition.",
       tags: ["Block Coding", "Autonomy", "Competition"],
       repo: "#",
-      writeup: "#"
     }
   ];
 
@@ -422,7 +443,7 @@
     document.getElementById('modal-detail').textContent = p.detail;
     document.getElementById('modal-tags').innerHTML = p.tags.map(t => `<span>${t}</span>`).join('');
     document.getElementById('modal-repo').href = p.repo;
-    document.getElementById('modal-writeup').href = p.writeup;
+
     overlay.classList.add('open');
   }
   function closeModal(){ overlay.classList.remove('open'); }
