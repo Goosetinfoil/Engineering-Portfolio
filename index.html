@@ -80,8 +80,6 @@
   .now-line{ font-family:'JetBrains Mono', monospace; font-size:12.5px; color:var(--text); padding:6px 0 6px 14px; position:relative; }
   .now-line::before{ content:"▸"; position:absolute; left:0; color:var(--accent); font-size:10px; top:8px; }
   
- 
-
 
   /* ---------- Top nav ---------- */
 
@@ -108,12 +106,17 @@
   section h2{ font-size:32px; font-weight:600; margin-bottom:8px; }
   section .subhead{ color:var(--muted); font-size:14.5px; margin-bottom:32px; max-width:640px; }
 
-  .about-body{ max-width:900px; color:#c9d2de; font-size:15px; }
+  .about-body{ max-width:900px; color:#c9d2de; font-size:16px; }
   .about-body p{ margin-bottom:16px; }
   .about-body p:last-child{ margin-bottom:0; }
 
   /* Projects */
   .project-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:20px; }
+  .card-thumb{
+    width:calc(100% + 48px); height:160px; margin:-24px -24px 20px;
+    background-size:cover; background-position:center; background-color:var(--panel-2);
+    border-bottom:1px solid var(--line);
+  }
   .project-card{
     background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
     padding:24px; cursor:pointer; transition:transform .15s, border-color .15s;
@@ -172,7 +175,7 @@
     border:1px solid var(--line); color:var(--text); width:34px; height:34px;
     cursor:pointer; font-size:18px; line-height:1; border-radius:var(--radius);
   }
-  .modal-img{ width:100%; aspect-ratio:21/9; background:var(--panel-2); display:flex; align-items:center; justify-content:center; color:var(--muted); font-family:'JetBrains Mono', monospace; font-size:12.5px; }
+  .modal-img{ width:100%; aspect-ratio:21/9; background-color:var(--panel-2); background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center; color:var(--muted); font-family:'JetBrains Mono', monospace; font-size:12.5px; }
   .modal-body{ padding:40px 44px 44px; }
   .modal-body .idx{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--accent); margin-bottom:10px; display:block; }
   .modal-body h3{ font-size:30px; margin-bottom:28px; }
@@ -252,16 +255,15 @@
         <h2>About Me</h2>
         <div class="about-body">
           <p>
-            I'm a Mechatronics Engineering Technology student at Rochester Institute of Technology,
-            interested in automation, robotics, hardware control, and sensor systems. I like projects
-            that sit at the intersection of mechanical design and code — CAD models that become real
-            parts, and control loops that make hardware actually respond to the world.
+            I'm a second-year Mechatronics Engineering Technology student at Rochester Institute of Technology, 
+            interested in robotics and automation. I'm drawn to projects that sit at the 
+            intersection of mechanical design and code — CAD models that become real parts, and 
+            control loops that make hardware actually respond to the world.
           </p>
           <p>
-            Past work spans a propulsion prototype through a SpaceTech program, a hybrid vehicle concept
-            for Ferrari's work experience program, and LEGO/VEX/Arduino robotics builds going back to
-            high school. This summer I'm sharpening CAD (Fusion 360 → SolidWorks/CSWA), Python, MATLAB,
-            and Arduino through hands-on, project-based practice.
+            My interest in this space started early — building an Arduino-powered car during COVID and 
+            competing in robotics through high school — and it's carried through into how I approach 
+            engineering now: practical, iterative, and hands-on.
           </p>
         </div>
       </section>
@@ -401,6 +403,7 @@
       detail: "This app was made using python",
       tags: ["SPIKE Prime", "Sensors", "Autonomy"],
       repo: "#",
+      image: "images/servo-motor.jpg"
     },
     {
       idx: "02",
@@ -409,6 +412,7 @@
       detail: "Designed and coded an autonomous LEGO robot for the ISSEA STEAM 2025 competition in Addis Ababa, tasked with locating and flipping a Ring Stack toy using block-based programming. Our team won the MVP award for best overall team performance across the competition.",
       tags: ["Block Coding", "Autonomy", "Competition"],
       repo: "#",
+      image: "images/ring-stack-robot.jpg"
     }
   ];
 
@@ -418,6 +422,7 @@
     const card = document.createElement('div');
     card.className = 'project-card';
     card.innerHTML = `
+      <div class="card-thumb" style="background-image:url('${p.image}')"></div>
       <span class="idx">// ${p.idx}</span>
       <h3>${p.title}</h3>
       <p>${p.summary}</p>
@@ -443,7 +448,8 @@
     document.getElementById('modal-detail').textContent = p.detail;
     document.getElementById('modal-tags').innerHTML = p.tags.map(t => `<span>${t}</span>`).join('');
     document.getElementById('modal-repo').href = p.repo;
-
+    document.getElementById('modal-img').style.backgroundImage = `url('${p.image}')`;
+    document.getElementById('modal-img').textContent = '';
     overlay.classList.add('open');
   }
   function closeModal(){ overlay.classList.remove('open'); }
