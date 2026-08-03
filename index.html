@@ -471,13 +471,7 @@
     grid.appendChild(card);
   });
 
-  // Placeholder "add a project" cards
-  for (let i = 0; i < 2; i++) {
-    const ph = document.createElement('div');
-    ph.className = 'project-card placeholder';
-    ph.textContent = '+ Add your next Arduino / Python / CAD project here';
-    grid.appendChild(ph);
-  }
+
 
   const overlay = document.getElementById('modal-overlay');
   function openModal(p){
