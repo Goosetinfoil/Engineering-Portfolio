@@ -687,46 +687,38 @@
       }
       .modal-body .idx {
         font-family: "JetBrains Mono", monospace;
-        font-size: 11px;
+        font-size: 12px;
         color: var(--accent);
         margin-bottom: 10px;
         display: block;
       }
       .modal-body h3 {
         font-size: 30px;
-        margin-bottom: 28px;
+        margin-bottom: 12px;
       }
       .modal-body h4 {
-        font-size: 16px;
-        margin-bottom: 10px;
+        font-size: 21px;
+        font-weight: 600;
+        color: var(--text);
+        margin-top: 36px;
+        margin-bottom: 12px;
       }
+      #modal-sections h4:first-child {
+        margin-top: 0;
+      }
+
       .modal-body .detail {
-        color: var(--body-text);
-        font-size: 15px;
-        margin-bottom: 28px;
-        max-width: 680px;
-      }
-      .modal-grid {
-        display: grid;
-        grid-template-columns: 1fr 260px;
-        gap: 40px;
-        align-items: start;
-      }
-      .modal-main .detail {
-        max-width: none;
-      }
-      .modal-side .modal-tags {
-        margin-bottom: 20px;
-      }
-      .modal-side .modal-actions {
-        flex-direction: column;
-        align-items: stretch;
-      }
-      @media (max-width: 700px) {
-        .modal-grid {
-          grid-template-columns: 1fr;
+          color: var(--body-text);
+          font-size: 17px;
+          margin-bottom: 24px;
+          max-width: 1000px;
         }
-      }
+
+      .skills-used-top{ margin-top:20px !important; margin-bottom:14px; }
+      .modal-tags{ margin-bottom:8px; }
+      .modal-actions{ margin-bottom: 8;}
+
+
       .modal-tags {
         display: flex;
         flex-wrap: wrap;
@@ -770,6 +762,29 @@
       }
       .modal-actions .writeup:hover {
         border-color: var(--muted);
+      }
+
+      .modal-gallery-wrap {
+        margin-top: 32px;
+      }
+      .modal-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .modal-gallery img {
+        height: 500px;
+        width: auto;
+        max-width: 100%;
+        object-fit: cover;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+      }
+      @media (max-width: 700px) {
+        .modal-gallery img {
+          height: auto;
+          width: 100%;
+        }
       }
     </style>
   </head>
@@ -1060,20 +1075,32 @@
         </button>
         <div class="modal-img" id="modal-img">Drop project image</div>
         <div class="modal-body">
-          <span class="idx" id="modal-idx"></span>
-          <h3 id="modal-title"></h3>
-          <div class="modal-grid">
-            <div class="modal-main">
-              <h4>Project Overview</h4>
-              <p class="detail" id="modal-detail"></p>
+          <div class="modal-body">
+            <span class="idx" id="modal-idx"></span>
+            <h3 id="modal-title"></h3>
+
+            <div class="modal-actions">
+              <a class="repo" id="modal-repo" href="#" target="_blank">GitHub Repo</a>
             </div>
-            <div class="modal-side">
-              <h4>Skills Used</h4>
-              <div class="modal-tags" id="modal-tags"></div>
-              <div class="modal-actions">
-                <a class="repo" id="modal-repo" href="#" target="_blank"
-                  >GitHub Repo</a
-                >
+
+            <h4 class="skills-used-top">Skills Used</h4>
+            <div class="modal-tags" id="modal-tags"></div>
+
+            <div id="modal-sections"></div>
+
+            <div class="modal-gallery-wrap" id="modal-gallery-wrap" style="display:none;">
+              <h4>Photos</h4>
+              <div class="modal-gallery" id="modal-gallery"></div>
+            </div>
+          </div>
+              </div>
+              <div
+                class="modal-gallery-wrap"
+                id="modal-gallery-wrap"
+                style="display: none"
+              >
+                <h4>Photos</h4>
+                <div class="modal-gallery" id="modal-gallery"></div>
               </div>
             </div>
           </div>
@@ -1089,32 +1116,57 @@
         {
           idx: "01",
           title:
-            "Servo Control & Configuration Tooling — Reverse-Engineered Actuator Interface",
+            "Servo Configuration Tool — Reverse-Engineered Protocol Bridge",
           summary:
-            "Reverse-engineered two undocumented USB/serial protocols from raw traffic captures to build a cross-platform desktop app that configures and calibrates aerospace-grade servo actuators — no vendor software required.",
-          detail:
-            "<p>Cloudline needed to configure and calibrate two actuator systems on a vehicle platform — a Hitec MDB961WP-CAN servo and a CubeMars AK80-8 brushless actuator — without relying on the manufacturers' Windows-only GUIs. Neither vendor published a usable protocol for the adapter hardware in use, so most of the project was reverse-engineering undocumented serial protocols directly from USB traffic before any application code could be written.</p> <p>For the Hitec servo, I captured and diffed USB traffic to decode a proprietary 14-byte framing protocol wrapping the DPC-CAN adapter's communication, reconstructed its checksum and a required 4-phase device wake sequence, and diagnosed a silent failure mode where valid-looking commands were ignored due to undocumented sequence-number constraints.</p> <p>For the CubeMars actuator, I implemented the VESC UART protocol from scratch (CRC16-XMODEM framing) and reverse-engineered the specific configuration byte offsets Cloudline needed by diffing 390-byte config payloads across single-field changes in the vendor tool.</p> <p>The result is servo_monitor.py, a tkinter desktop app with auto-detected USB adapters, full read/write parameter control for both devices, a JSON-based profile system, and a hand-drawn vehicle diagram showing physical servo positions — packaged as standalone Windows and Linux executables via PyInstaller. Along the way I diagnosed hardware issues (a supply-voltage instability mistaken for a control-loop bug), refactored a procedural script into a proper OOP class hierarchy, and documented failures alongside successes throughout. </p>",
+            "Desktop tool to configure and calibrate two different servo/actuator systems by reverse-engineering their undocumented USB protocols from raw traffic captures.",
+          sections: [
+            {
+              heading: "Overview",
+              body: "Built for Cloudline to configure, calibrate, and monitor two very different actuator systems — a Hitec MDB961WP-CAN servo and a CubeMars AK80-8 brushless actuator — without relying on the manufacturers' Windows-only configuration apps. Neither vendor published a usable protocol for the adapter hardware in use, so most of the work was reverse-engineering both undocumented serial protocols from raw USB traffic before any application work could start.",
+            },
+            {
+              heading: "Reverse-Engineering the Protocols",
+              body: "Captured raw USB traffic while operating each vendor's own configuration app, then diffed near-identical captures to isolate fixed header bytes, checksums, and register values from noise like periodic heartbeat packets. This uncovered the Hitec adapter's undocumented 14-byte frame format and checksum, its required multi-phase wake sequence, and non-obvious quirks like a silent device-side ceiling on one parameter. The same diffing approach decoded the CubeMars actuator's VESC-based protocol, isolating exact byte offsets for over a dozen configuration parameters.",
+            },
+            {
+              heading: "The Application",
+              body: "The result, servo_monitor.py, is a single tkinter desktop app with a tab per servo type: auto-detected USB adapters, full register/parameter editing for both devices, a saved-profile system, and a hand-drawn vehicle diagram that highlights which physical servo a given profile controls. Packaged as a standalone .exe on Windows and a native binary on Linux, so it runs with no Python installation required.",
+            },
+            {
+              heading: "Key Lessons",
+              body: "Silent failures were the hardest bugs to catch — a device quietly ignoring an invalid value, or a setting reverting after being written, gave no error to chase. Reverse-engineering worked best as a diffing discipline: isolating the smallest possible action and comparing near-identical captures, rather than guessing from one large trace. Developed with AI-assisted pair programming, with the protocol reverse-engineering, architecture, and hardware debugging driven independently.",
+            },
+          ],
           tags: [
             "Python",
-            "Protocol Reverse-Engineering",
-            "Serial/UART",
             "tkinter",
+            "Serial Communication",
+            "Reverse Engineering",
             "PyInstaller",
           ],
           repo: "#",
-          image: "images/servo.png",
+          image: "images/servo/servo.png",
+          gallery: ["images/servo/hitec.png", "images/servo/cubemars.png"],
         },
         {
           idx: "02",
-          title: "ISSEA STEAM 2025 — Ring Stack Robot",
-          summary:
-            "Autonomous LEGO robot built to locate and flip a Ring Stack toy, competed in Addis Ababa. Won the MVP award for best overall team performance.",
-          detail:
-            "Designed and coded an autonomous LEGO robot for the ISSEA STEAM 2025 competition in Addis Ababa, tasked with locating and flipping a Ring Stack toy using block-based programming. Our team won the MVP award for best overall team performance across the competition.",
-          tags: ["Block Coding", "Autonomy", "Competition"],
+          title: "Autonomous Ring Stack Manipulator — ISSEA STEAM 2025",
+          summary: "Autonomous LEGO robot built to locate, flip, and restore a Ring Stack toy, competed internationally in Addis Ababa.",
+          sections: [
+            {
+              heading: "Overview",
+              body: "Designed and programmed with a team for the ISSEA STEAM 2025 competition in Addis Ababa, Ethiopia — an international robotics competition among Southern and East African schools. The robot was programmed to locate and flip a Ring Stack toy, remove its contents, and restore it to its upright position using sensors and motor control."
+            },
+            {
+              heading: "Result",
+              body: "The team won the MVP award for best overall team performance across all participating schools."
+            }
+          ],
+          tags: ["Robotics", "Debugging", "Problem-Solving", "Sensor Integration", "Motor Control"],
           repo: "#",
-          image: "images/ring-stack-robot.jpg",
-        },
+          image: "images/ring-stack/testing.jpg",
+          gallery: ["images/ring-stack/robo.jpg", "images/ring-stack/robo1.jpg", "images/ring-stack/code.jpg"]
+        }
       ];
 
       const grid = document.getElementById("project-grid");
@@ -1138,7 +1190,9 @@
       function openModal(p) {
         document.getElementById("modal-idx").textContent = "// " + p.idx;
         document.getElementById("modal-title").textContent = p.title;
-        document.getElementById("modal-detail").innerHTML = p.detail;
+        document.getElementById("modal-sections").innerHTML = p.sections
+          .map((s) => `<h4>${s.heading}</h4><p class="detail">${s.body}</p>`)
+          .join("");
         document.getElementById("modal-tags").innerHTML = p.tags
           .map((t) => `<span>${t}</span>`)
           .join("");
@@ -1146,6 +1200,16 @@
         document.getElementById("modal-img").style.backgroundImage =
           `url('${p.image}')`;
         document.getElementById("modal-img").textContent = "";
+        const galleryWrap = document.getElementById("modal-gallery-wrap");
+        const galleryEl = document.getElementById("modal-gallery");
+        if (p.gallery && p.gallery.length > 0) {
+          galleryEl.innerHTML = p.gallery
+            .map((src) => `<img src="${src}" alt="${p.title} photo">`)
+            .join("");
+          galleryWrap.style.display = "block";
+        } else {
+          galleryWrap.style.display = "none";
+        }
         overlay.classList.add("open");
       }
       function closeModal() {
