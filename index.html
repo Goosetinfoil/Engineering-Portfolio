@@ -270,7 +270,7 @@
         font-family: "JetBrains Mono", monospace;
         text-decoration: underline;
         display: inline-block;
-        margin-top: 200px;
+        margin-top: 140px;
       }
 
       /* ---------- Top nav ---------- */
@@ -470,36 +470,13 @@
       }
 
       /* Skills */
-      .skills-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 16px;
-        max-width: clamp(820px, 60vw, 1700px);
-      }
-      .skills-cat {
-        border: 1px solid var(--line);
-        padding: 18px 20px;
-        background: var(--panel);
-      }
-      .skills-cat .cat-label {
-        font-family: "JetBrains Mono", monospace;
-        font-size: 11px;
-        color: var(--accent);
-        text-transform: uppercase;
-        margin-bottom: 12px;
-        letter-spacing: 0.08em;
-      }
-      .skills-cat ul {
-        list-style: none;
-      }
-      .skills-cat li {
-        font-size: 13.5px;
-        color: var(--body-text);
-        padding: 4px 0;
-        border-bottom: 1px dotted var(--line);
-      }
-      .skills-cat li:last-child {
-        border-bottom: none;
+      .skills-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px; max-width: clamp(820px, 60vw, 1300px); }
+      .skills-cat{ border:1px solid var(--line); padding:18px 20px; background:var(--panel); }
+      .skills-cat .cat-label{ font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--accent); text-transform:uppercase; margin-bottom:12px; letter-spacing:0.08em; }
+      .skills-cat .chip-row{ display:flex; flex-wrap:wrap; gap:8px; }
+      .skills-cat .chip-row span{
+        font-size:12.5px; color:var(--body-text); border:1px solid var(--line);
+        padding:5px 12px; border-radius:var(--radius); font-family:'JetBrains Mono', monospace;
       }
 
       .skills-other-inline {
@@ -930,34 +907,37 @@
             <div class="skills-grid">
               <div class="skills-cat">
                 <div class="cat-label">Software / Code</div>
-                <ul>
-                  <li>Python</li>
-                  <li>MATLAB</li>
-                  <li>Embedded C (MSP430)</li>
-                  <li>Intel Quartus Prime</li>
-                </ul>
+                <div class="chip-row">
+                  <span>Python</span>
+                  <span>MATLAB</span>
+                  <span>Git</span>
+                  <span>Linux</span>
+                </div>
               </div>
               <div class="skills-cat">
                 <div class="cat-label">CAD / Design</div>
-                <ul>
-                  <li>Autodesk Fusion 360</li>
-                  <li>SolidWorks (in progress)</li>
-                </ul>
+                <div class="chip-row">
+                  <span>Autodesk Fusion 360</span>
+                  <span>SolidWorks (in progress)</span>
+                </div>
               </div>
               <div class="skills-cat">
                 <div class="cat-label">Hardware</div>
-                <ul>
-                  <li>Arduino</li>
-                  <li>Lathe &amp; Mill Operations</li>
-                  <li>VEX V5 Robotics</li>
-                </ul>
+                <div class="chip-row">
+                  <span>Arduino</span>
+                  <span>Lathe &amp; Mill Operations</span>
+                  <span>VEX V5 Robotics</span>
+                  <span>Lego Spike</span>
+                </div>
               </div>
               <div class="skills-cat">
                 <div class="cat-label">Other</div>
-                <ul>
-                  <li>Microsoft Excel</li>
-                  <li>Technical Presentations</li>
-                </ul>
+                <div class="chip-row">
+                  <span>Microsoft Excel</span>
+                  <span>Technical Presentations</span>
+                  <span>Debugging</span>
+                  <span>Problem-Solving</span>
+                </div>
               </div>
             </div>
           </section>
