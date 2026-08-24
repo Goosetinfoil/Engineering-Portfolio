@@ -693,7 +693,7 @@
 
       .skills-used-top{ margin-top:20px !important; margin-bottom:14px; }
       .modal-tags{ margin-bottom:8px; }
-      .modal-actions{ margin-bottom: 8;}
+      .modal-actions:empty{ display:none; }
 
 
       .modal-tags {
@@ -950,9 +950,18 @@
               Internships, work-experience programs, and campus work.
             </p>
 
+            <div class="timeline-item">
+              <div class="date">June 2026 —<br>July 2026</div>
+              <div>
+                <h3>Engineering Intern</h3>
+                <div class="org">Cloudline · Cape Town, South Africa</div>
+                <p>Reverse-engineered undocumented USB serial protocols for two vehicle actuator systems by capturing and diffing raw USB traffic, then built a cross-platform desktop application for configuring, and calibrating, — packaged as a standalone executable requiring no Python installation.</p>
+                <div class="role-tags"><span>Reverse Engineering</span><span>Python</span><span>Serial Communication</span><span>Application Development</span></div>
+              </div>
+            </div>
             <div class="timeline">
               <div class="timeline-item">
-                <div class="date">SEP 2025 —<br />PRESENT</div>
+                <div class="date">September 2025 —<br />Present</div>
                 <div>
                   <h3>Student Employee</h3>
                   <div class="org">
@@ -969,7 +978,7 @@
                 </div>
               </div>
               <div class="timeline-item">
-                <div class="date">OCT 2024 —<br />NOV 2024</div>
+                <div class="date">October 2024 —<br />November 2024</div>
                 <div>
                   <h3>SpaceTech Work Experience Program</h3>
                   <div class="org">Delta Careers · Johannesburg (Online)</div>
@@ -986,7 +995,7 @@
                 </div>
               </div>
               <div class="timeline-item">
-                <div class="date">JUN 2024</div>
+                <div class="date">June 2024</div>
                 <div>
                   <h3>Internship</h3>
                   <div class="org">
@@ -1005,7 +1014,7 @@
                 </div>
               </div>
               <div class="timeline-item">
-                <div class="date">FEB 2024 —<br />MAR 2024</div>
+                <div class="date">February 2024 —<br />March 2024</div>
                 <div>
                   <h3>Ferrari Work Experience Program</h3>
                   <div class="org">Delta Careers · Johannesburg (Online)</div>
@@ -1132,19 +1141,27 @@
         {
           idx: "02",
           title: "Autonomous Ring Stack Manipulator — ISSEA STEAM 2025",
-          summary: "Autonomous LEGO robot built to locate, flip, and restore a Ring Stack toy, competed internationally in Addis Ababa.",
+          summary: "Built an autonomous LEGO robot with three teammates to locate, flip, and restore a Ring Stack toy, competed in an international competition in Addis Ababa.",
           sections: [
             {
+              heading : "Competition",
+              body: "ISSEA STEAM 2025 was held in Addis Ababa, Ethiopia — an international competition in science, technology, engineering, arts, and mathematics among schools across Southern and East Africa."
+            },
+            {
               heading: "Overview",
-              body: "Designed and programmed with a team for the ISSEA STEAM 2025 competition in Addis Ababa, Ethiopia — an international robotics competition among Southern and East African schools. The robot was programmed to locate and flip a Ring Stack toy, remove its contents, and restore it to its upright position using sensors and motor control."
+              body: "My teammates and I designed and programmed a LEGO robot to autonomously locate and flip a Ring Stack toy, remove its contents, and restore it to its upright position using sensors and motor control. Throughout development, we iterated on the design repeatedly to make the robot perform the task with consistent precision and accuracy."
+            },
+            {
+              heading: "Design Iterations",
+              body: "Adding an ultrasonic sensor to the front of the robot required reworking the flipper — the mechanism responsible for flipping the Ring Stack toy. We widened it and reinforced it by connecting the two halves at the front, increasing surface area for a more reliable flip. The added sensor also shifted the robot's balance toward the front, so we built a small compartment at the back to hold a counterweight and keep the robot stable."
             },
             {
               heading: "Result",
-              body: "The team won the MVP award for best overall team performance across all participating schools."
+              body: "As a resutlt of my teams effort, we were able to successfully complete the task and place 3rd in the robotics competition. The robot was able to locate, flip, and restore the Ring Stack toy with a high degree of accuracy and consistency."
             }
           ],
           tags: ["Robotics", "Debugging", "Problem-Solving", "Sensor Integration", "Motor Control"],
-          repo: "#",
+          repo: null ,
           image: "images/ring-stack/testing.jpg",
           gallery: ["images/ring-stack/robo.jpg", "images/ring-stack/robo1.jpg", "images/ring-stack/code.jpg"]
         }
@@ -1177,7 +1194,14 @@
         document.getElementById("modal-tags").innerHTML = p.tags
           .map((t) => `<span>${t}</span>`)
           .join("");
-        document.getElementById("modal-repo").href = p.repo;
+        const repoBtn = document.getElementById('modal-repo');
+        const actionsWrap = document.querySelector('.modal-actions');
+        if (p.repo) {
+          repoBtn.style.display = 'inline-flex';
+          repoBtn.href = p.repo;
+        } else {
+          repoBtn.style.display = 'none';
+        }
         document.getElementById("modal-img").style.backgroundImage =
           `url('${p.image}')`;
         document.getElementById("modal-img").textContent = "";
